@@ -1,29 +1,21 @@
-import styled from "styled-components";
+import { AddBox, InputAddBox } from "./Styled-Component";
 
-const MoneyInputAdd = ({
-  Month,
-  setMonth,
-  day,
-  setDay,
-  list,
-  setList,
-  money,
-  setMoney,
-  content,
-  setContent,
-}) => {
-  const AddBox = styled.div`
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid black;
-    border-radius: 16px;
-    text-align: center;
-  `;
+const MoneyInputAdd = ({ moneyList }) => {
   return (
     <>
-      <AddBox></AddBox>
+      <AddBox>
+        <div>
+          {moneyList.map((list) => (
+            <InputAddBox key={list.id}>
+              <span>날짜 : {list.day}</span>
+              <span>항목 : {list.item}</span>
+              <span>금액 : {list.money}</span>
+              <span>내용 : {list.content}</span>
+            </InputAddBox>
+          ))}
+        </div>
+        <div></div>
+      </AddBox>
     </>
   );
 };

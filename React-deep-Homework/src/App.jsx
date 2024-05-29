@@ -1,4 +1,3 @@
-import MoneyContainer from "./Components/Money/MoneyContainer";
 import GlobalStyle from "./Components/Money/GlobalStyled";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../src/Pages/Home";
@@ -13,7 +12,6 @@ const App = () => {
           <Route path="/detail/:id" element={<Detail />} />
         </Routes>
       </BrowserRouter>
-      <MoneyContainer />
     </>
   );
 };

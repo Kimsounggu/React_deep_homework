@@ -1,5 +1,10 @@
+import MoneySavePage from "../Components/Money/MoneySavePage";
 const Detail = () => {
-  return <div></div>;
+  return (
+    <>
+      <MoneySavePage />
+    </>
+  );
 };
 
 export default Detail;

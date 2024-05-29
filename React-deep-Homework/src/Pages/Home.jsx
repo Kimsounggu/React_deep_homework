@@ -1,5 +1,7 @@
+import MoneyContainer from "../Components/Money/MoneyContainer";
+
 const Home = () => {
-  return <div></div>;
+  return <MoneyContainer />;
 };
 
 export default Home;

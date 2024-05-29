@@ -1,27 +1,34 @@
 import { useState } from "react";
-import MoneyFrom from "./MoneyForm";
+import MoneyForm from "./MoneyForm";
+import MoneyMonth from "./MoneyMonth";
+import MoneyInputAdd from "./MoneyInputAdd";
 
 const MoneyContainer = () => {
-  const [Month, setMonth] = useState("");
   const [day, setDay] = useState("");
-  const [list, setList] = useState("");
+  const [item, setItem] = useState("");
   const [money, setMoney] = useState("");
   const [content, setContent] = useState("");
-
+  const [moneyList, setMoneyList] = useState([]);
+  const [selectedMonth, setSelectedMonth] = useState(null);
   return (
     <>
-      <MoneyFrom
-        Month={Month}
-        setMonth={setMonth}
+      <MoneyForm
         day={day}
         setDay={setDay}
-        list={list}
-        setList={setList}
+        item={item}
+        setItem={setItem}
         money={money}
         setMoney={setMoney}
         content={content}
         setContent={setContent}
+        moneyList={moneyList}
+        setMoneyList={setMoneyList}
       />
+      <MoneyMonth
+        selectedMonth={selectedMonth}
+        setSelectedMonth={setSelectedMonth}
+      />
+      <MoneyInputAdd moneyList={moneyList} setMoneyList={setMoneyList} />
     </>
   );
 };

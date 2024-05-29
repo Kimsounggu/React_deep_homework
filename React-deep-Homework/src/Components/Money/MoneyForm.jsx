@@ -1,76 +1,87 @@
-import MoneyMonth from "./MoneyMonth";
-import styled from "styled-components";
+import { InputBox, StyledInput } from "../Money/Styled-Component";
+import PropTypes from "prop-types";
 
-const InputBox = styled.div`
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: rgb(255, 255, 255);
-  border: 1px solid black;
-  border-radius: 16px;
-  text-align: center;
-`;
 const MoneyForm = ({
-  Month,
-  setMonth,
   day,
   setDay,
-  list,
-  setList,
+  item,
+  setItem,
   money,
   setMoney,
   content,
   setContent,
+  moneyList,
+  setMoneyList,
 }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleListChange = (e) => setItem(e.target.value);
+  const handleMoneyChange = (e) => setMoney(e.target.value);
+  const handleContentChange = (e) => setContent(e.target.value);
 
-    const formData = new FormData(e.target);
-    const day = formData.get("day");
-    const list = formData.get("list");
-    const money = formData.get("money");
-    const content = formData.get("content");
-
-    if (!day.trim() || !list.trim() || !money.trim() || !content.trim()) {
+  const handleSave = () => {
+    if (!item.trim() || !money.trim() || !content.trim()) {
       return alert("모든 필드를 입력해주세요.");
     }
-    setDay(day);
-    setList(list);
-    setMoney(money);
-    setContent(content);
 
-    e.target.reset();
+    const newItems = {
+      id: crypto.randomUUID(),
+      day,
+      item,
+      money,
+      content,
+    };
+
+    setMoneyList([...moneyList, newItems]);
+    setItem("");
+    setMoney("");
+    setContent("");
   };
 
   return (
     <>
       <InputBox>
-        <form onSubmit={handleSubmit}>
-          날짜
-          <input type="text" name="day" placeholder="현재날짜넣기" />
-          항목
-          <input type="text" name="list" placeholder="지출 항목" />
-          금액
-          <input type="text" name="money" placeholder="지출 금액" />
-          내용
-          <input type="text" name="content" placeholder="지출 내용" />
-          <button type="submit">저장</button>
-        </form>
+        날짜
+        <StyledInput
+          type="date"
+          value={day}
+          onChange={(e) => setDay(e.target.value)}
+        />
+        항목
+        <StyledInput
+          type="text"
+          value={item}
+          onChange={handleListChange}
+          placeholder="지출 항목"
+        />
+        금액
+        <StyledInput
+          type="number"
+          value={money}
+          onChange={handleMoneyChange}
+          placeholder="지출 금액"
+        />
+        내용
+        <StyledInput
+          type="text"
+          value={content}
+          onChange={handleContentChange}
+          placeholder="지출 내용"
+        />
+        <button onClick={handleSave}>저장</button>
       </InputBox>
-      <MoneyMonth
-        Month={Month}
-        setMonth={setMonth}
-        day={day}
-        setDay={setDay}
-        list={list}
-        setList={setList}
-        money={money}
-        setMoney={setMoney}
-        content={content}
-        setContent={setContent}
-      />
     </>
   );
+};
+
+MoneyForm.propTypes = {
+  day: PropTypes.string.isRequired,
+  setDay: PropTypes.func.isRequired,
+  item: PropTypes.string.isRequired,
+  setItem: PropTypes.func.isRequired,
+  money: PropTypes.string.isRequired,
+  setMoney: PropTypes.func.isRequired,
+  content: PropTypes.string.isRequired,
+  setContent: PropTypes.func.isRequired,
+  moneyList: PropTypes.array.isRequired,
 };
 
 export default MoneyForm;
